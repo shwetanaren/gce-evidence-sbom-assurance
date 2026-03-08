@@ -1,61 +1,99 @@
-# sbom-reality-checker
+# gce-evidence-sbom-assurance
 
-Evaluate SBOM standards for audit efficacy: SPDX vs. CycloneDX
+SBOM assurance as an evidence problem, not just an artifact problem.
 
-Governance ??? Code ??? Evidence
-# SBOM Reality Checker: Standards Evaluation
+This repository tests whether an SBOM generated from a static container image
+remains trustworthy when checked against runtime filesystem reality.
 
-**Governance  Code  Evidence**
+The immediate experiment starts with `nginx:stable-alpine` and asks a simple
+question:
 
-I audit where SBOM claims meet container realityand evaluate which standard enables better audit.
+> Is a baseline image SBOM enough, or do we need additional runtime evidence to
+> trust the declared inventory?
 
-## The Test
+## Current Experiment
 
-Same container. Two standards. One runtime. Compare efficacy.
+The first lab lives in
+[`experiments/nginx-stable-alpine/`](./experiments/nginx-stable-alpine/).
 
-## Standards Tested
+It implements a repeatable flow that:
 
-- **SPDX:** Linux Foundation, ISO, legal-focused
-- **CycloneDX:** OWASP, security-focused, VEX-ready
+1. generates a baseline CycloneDX SBOM from the static image with Syft
+2. runs the image as a container
+3. applies three runtime mutation scenarios
+4. captures runtime evidence with `docker diff`, `docker export`, and a Syft
+   scan of the exported filesystem
+5. compares baseline inventory against runtime evidence
+6. classifies the drift and explains what it means for assurance
 
-## The Finding
-
-Both drift. CycloneDX enables faster automated audit. SPDX carries more legal weight.  
-For continuous compliance: **CycloneDX + verification tooling**.
-
-## How to Run
+## Quick Start
 
 ```bash
-# SPDX version
-cd standards/spdx
-./01-generate-sbom.sh && ./02-extract-runtime.sh && python3 03-compare.py
-
-# CycloneDX version  
-cd standards/cyclonedx
-./01-generate-sbom.sh && ./02-extract-runtime.sh && python3 03-compare.py
-
-# Compare
-cat compare-standards/spdx-vs-cyclonedx-drift.md
+cd experiments/nginx-stable-alpine
+./scripts/06-run-sample.sh
 ```
 
-## Governance Code Evidence
+Artifacts are written into:
 
-Testing where compliance claims meet technical reality.
+- `experiments/nginx-stable-alpine/artifacts/baseline/`
+- `experiments/nginx-stable-alpine/artifacts/runtime/`
+- `experiments/nginx-stable-alpine/findings/`
 
-## Series: [Regulation] Claims vs. Reality
+## Repository Layout
+
+```text
+experiments/nginx-stable-alpine/
+  README.md
+  scripts/
+  lib/
+  artifacts/
+  findings/
+docs/
+```
+
+This repo stays markdown-first and portfolio-friendly:
+
+- runnable scripts are kept small and readable
+- findings are written as markdown, not hidden in notebook output
+- the evidence model is explicit, so the governance argument is inspectable
+
+## Why This Matters
+
+An image can produce an SBOM and still fail as trustworthy evidence at runtime.
+
+That happens when:
+
+- normal runtime churn changes the observed filesystem surface
+- configuration drift alters what the software actually does
+- material component drift adds or removes packages after the baseline artifact
+
+The governance problem is not only whether tooling can emit an SBOM. The real
+question is whether the declared inventory still deserves trust when operations
+change the runtime state.
+
+## Regulatory Extensions
+
+This repo is one lab in the broader Governance - Code - Evidence series. The
+same evidence-assurance logic can be applied to other regulations and operating
+contexts.
 
 | Regulation | Investigation | Status |
-|-----------|---------------|--------|
-| CRA | nginx SBOM accuracy | In progress |
-| DORA | Terraform drift | Planned |
-| GDPR | Consent state reconciliation | Planned |
-| EU AI Act | ML pipeline provenance | Planned |
+| ---------- | ------------- | ------ |
+| CRA | nginx SBOM runtime trust | In progress |
+| DORA | Terraform drift versus declared control state | Planned |
+| GDPR | Consent state reconciliation versus proof claims | Planned |
+| EU AI Act | ML pipeline provenance versus operational reality | Planned |
 
 ## Methodology
 
-Three-layer audit:
-1. **Accuracy:** Does the artifact match reality?
-2. **Utility:** Does it help manage risk?
-3. **Governance:** Does it satisfy regulation?
+Three-layer evaluation:
 
-[Investigations](#) | [Methodology](#) | [Contact](#)
+1. **Accuracy:** Does the artifact match observed runtime reality?
+2. **Utility:** Does the evidence help manage actual risk?
+3. **Governance:** Does the assurance posture support regulatory or customer
+   proof needs?
+
+## Supporting Docs
+
+- [`experiments/nginx-stable-alpine/README.md`](./experiments/nginx-stable-alpine/README.md)
+- [`docs/evidence-model.md`](./docs/evidence-model.md)

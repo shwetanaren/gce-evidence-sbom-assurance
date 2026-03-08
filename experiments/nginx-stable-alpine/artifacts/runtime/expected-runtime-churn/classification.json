@@ -1,0 +1,124 @@
+{
+  "baseline_component_count": 73,
+  "classification_counts": {
+    "configuration-drift": 4,
+    "expected-runtime-churn": 13,
+    "unknown-review": 1
+  },
+  "components_runtime_only": [],
+  "components_static_only": [],
+  "file_changes": [
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "C",
+      "path": "/tmp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/tmp/gce-runtime",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/tmp/gce-runtime/heartbeat.txt",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "configuration-drift",
+      "operation": "C",
+      "path": "/etc",
+      "reason": "Path sits in configuration space and can alter runtime behavior without changing packages."
+    },
+    {
+      "classification": "configuration-drift",
+      "operation": "C",
+      "path": "/etc/nginx",
+      "reason": "Path sits in configuration space and can alter runtime behavior without changing packages."
+    },
+    {
+      "classification": "configuration-drift",
+      "operation": "C",
+      "path": "/etc/nginx/conf.d",
+      "reason": "Path sits in configuration space and can alter runtime behavior without changing packages."
+    },
+    {
+      "classification": "configuration-drift",
+      "operation": "C",
+      "path": "/etc/nginx/conf.d/default.conf",
+      "reason": "Path sits in configuration space and can alter runtime behavior without changing packages."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "C",
+      "path": "/run",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/run/nginx.pid",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "unknown-review",
+      "operation": "C",
+      "path": "/var",
+      "reason": "Path does not match a known policy bucket and needs review."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "C",
+      "path": "/var/cache",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "C",
+      "path": "/var/cache/nginx",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/proxy_temp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/scgi_temp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/uwsgi_temp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/client_temp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/client_temp/request.cache",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    },
+    {
+      "classification": "expected-runtime-churn",
+      "operation": "A",
+      "path": "/var/cache/nginx/fastcgi_temp",
+      "reason": "Path sits in a temp/cache/run/log area that commonly changes at runtime."
+    }
+  ],
+  "generated_at": "2026-03-08T16:06:31.309014+00:00",
+  "recommendation": "Static SBOM alone is not sufficient for runtime assurance here. Configuration evidence must accompany the baseline artifact.",
+  "runtime_component_count": 73,
+  "scenario": "expected-runtime-churn"
+}

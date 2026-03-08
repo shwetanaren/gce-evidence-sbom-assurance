@@ -1,0 +1,4 @@
+experiments/nginx-stable-alpine/artifacts/runtime/*/filesystem.tar
+experiments/nginx-stable-alpine/artifacts/runtime/*/rootfs/
+__pycache__/
+*.pyc
