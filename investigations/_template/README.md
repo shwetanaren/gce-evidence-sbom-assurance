@@ -2,8 +2,8 @@
 
 Use this structure for every investigation in `gce-evidence-sbom-assurance`.
 
-The point is to keep each lab fast to build, easy to read, and consistent across
-technical, risk, and governance layers.
+The goal is to keep each investigation easy to build, easy to read, and
+consistent across the repo.
 
 ## Recommended Shape
 
@@ -18,7 +18,7 @@ investigations/<investigation-name>/
 
 ## Required Reading Structure
 
-Every investigation should be explainable through these sections:
+Every investigation should be readable through these sections:
 
 ### Accuracy
 
@@ -40,7 +40,7 @@ Every investigation should be explainable through these sections:
 
 ### Remediation
 
-Use remediation as guidance, not a hardcoded answer.
+Use remediation as guidance, not a fixed answer.
 
 #### Core requirements
 

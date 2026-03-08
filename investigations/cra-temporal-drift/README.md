@@ -18,9 +18,9 @@ The current test uses `nginx:stable-alpine`.
 
 1. generate a build-time SBOM and image manifest
 2. run the container and extract actual installed packages from live state
-3. optionally generate an SBOM from the running container snapshot
+3. generate an SBOM from the exported runtime filesystem
 4. compare build-time versus runtime package inventories
-5. interpret what that means for CRA Article 10 style documentation trust
+5. explain what that means for CRA-style documentation trust
 
 ## Structure
 
@@ -55,18 +55,18 @@ python3 ./phase-3-comparison/05-compare-build-vs-runtime.py
 
 ## What To Look For
 
-The interesting output is not only whether a drift exists.
+The point is not only to find drift.
 
-It is whether the organization can tell:
+The point is to show whether an organization can tell:
 
 - what the build-time claim was
 - what the runtime reality is
 - whether they still align
-- what kind of assurance process would be needed if they do not
+- what kind of follow-up evidence would be needed if they do not
 
 ## Analysis Convention
 
-Every investigation in this repo should read through the same method:
+Every investigation in this repo uses the same method:
 
 1. **Accuracy**
    Does the claim still match observed reality?
@@ -75,7 +75,6 @@ Every investigation in this repo should read through the same method:
 3. **Governance**
    What does that mean for the regulation, control, or assurance obligation?
 4. **Remediation**
-   What should be done next, including context-dependent and stakeholder-shaped
-   choices?
+   What should be done next, including context-dependent choices?
 
-That keeps the repo simple, fast to scan, and consistent across future labs.
+This keeps the repo simple and consistent across future investigations.

@@ -1,27 +1,21 @@
 # gce-evidence-sbom-assurance
 
-This repository investigates SBOM assurance as a temporal evidence problem.
+This repo tests SBOM assurance as an evidence problem.
 
-The central question is not only whether software can produce an SBOM at build
-time. It is whether that build-time snapshot still deserves trust once the
-container is actually running.
+The question is simple: a container can produce an SBOM at build time, but can
+that SBOM still be trusted once the container is running?
 
 ## Current Investigation
 
-The current investigation lives in
-[`investigations/cra-temporal-drift/`](./investigations/cra-temporal-drift/).
+Current investigation:
+[`investigations/cra-temporal-drift/`](./investigations/cra-temporal-drift/)
 
-It asks:
-
-> Can you trust a static SBOM once the container is running?
-
-The investigation uses `nginx:stable-alpine` and follows a clean four-phase
-flow:
+It uses `nginx:stable-alpine` and follows four phases:
 
 1. capture build-time evidence
 2. extract live runtime state
 3. compare build-time versus runtime
-4. explain the remediation architecture needed for continuous trust
+4. describe what continuous verification would need to look like
 
 ## Quick Start
 
@@ -34,10 +28,10 @@ python3 ./phase-3-comparison/05-compare-build-vs-runtime.py
 
 ## Why This Matters
 
-CRA Article 10 is fundamentally an evidence problem.
+CRA Article 10 is not just a documentation problem. It is an accuracy problem
+over time.
 
-If technical documentation is supposed to reflect reality, then a build-time
-SBOM on its own is only a snapshot. The trust question becomes temporal:
+A build-time SBOM is a snapshot. The real question is:
 
 - does the runtime still match the snapshot?
 - if not, how would the organization know?
@@ -45,8 +39,8 @@ SBOM on its own is only a snapshot. The trust question becomes temporal:
 
 ## Regulatory Extensions
 
-This repo is one lab in the broader Governance - Code - Evidence series. The
-same assurance logic can later be applied to other regulatory domains.
+This repo is one investigation in the broader Governance - Code - Evidence
+series. The same method can be reused in other domains.
 
 | Regulation | Investigation | Status |
 | ---------- | ------------- | ------ |
@@ -57,8 +51,7 @@ same assurance logic can later be applied to other regulatory domains.
 
 ## Repo Shape
 
-The repo is now centered on a single investigation surface instead of multiple
-parallel experiment layouts:
+The repo is centered on one investigation surface:
 
 ```text
 investigations/
