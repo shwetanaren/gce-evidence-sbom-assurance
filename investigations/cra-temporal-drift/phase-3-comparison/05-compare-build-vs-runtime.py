@@ -66,42 +66,50 @@ def main() -> None:
     )
 
     if runtime_only or version_drift:
-        technical_accuracy = (
+        accuracy_reading = (
             "The build-time SBOM no longer fully reflects runtime reality. "
             "Static inventory evidence is insufficient on its own."
         )
-        risk_reading = (
+        utility_reading = (
             "A stale build-time SBOM can cause false confidence in the declared "
             "software inventory. That weakens patching, exposure analysis, and "
-            "any downstream assurance that depends on the inventory being current."
+            "other decisions that depend on the inventory being current."
         )
     elif build_only:
-        technical_accuracy = (
+        accuracy_reading = (
             "The runtime package view is narrower than the build-time SBOM. "
             "This suggests either extraction blind spots or non-package artifacts "
             "in the build-time inventory."
         )
-        risk_reading = (
-            "The organization may treat the runtime view as complete when it is "
-            "actually missing part of the observed build-time inventory. This is "
-            "an evidence quality problem, not necessarily a software stability success."
+        utility_reading = (
+            "The runtime view may look decisive while actually hiding evidence "
+            "quality problems. Decisions based on it would need caution because "
+            "the extraction method may be incomplete."
         )
     else:
-        technical_accuracy = (
+        accuracy_reading = (
             "For this run, the build-time SBOM and live package extraction align "
             "at the package level. The trust claim holds only for this observed "
             "point in time."
         )
-        risk_reading = (
+        utility_reading = (
             "The current runtime check does not show package drift, but the trust "
-            "claim remains time-bound. Later updates, initialization logic, or "
-            "deployment changes could still make the documentation stale."
+            "claim remains time-bound. The evidence is useful for this moment, "
+            "but later updates, initialization logic, or deployment changes could "
+            "still make the documentation stale."
         )
 
     governance_reading = (
         "Accuracy cannot be treated as a one-time generation event. Even when the "
         "snapshot currently aligns with runtime state, the assurance obligation is "
         "temporal and should be re-verified as the system changes."
+    )
+
+    remediation_reading = (
+        "Use this result to guide verification design, not to hardcode a single "
+        "response. Keep build-time generation as a baseline, then decide with "
+        "stakeholders what deploy-time checks, runtime drift monitoring, and "
+        "reconciliation thresholds are appropriate for the system context."
     )
 
     drift_report = f"""# Drift Report
@@ -134,17 +142,21 @@ Runtime-only packages seen by the running-container SBOM:
 
 {markdown_list([f"{name}@{running_sbom_packages[name]}" for name in syft_runtime_only])}
 
-## Technical Accuracy
+## Accuracy
 
-{technical_accuracy}
+{accuracy_reading}
 
-## Risk
+## Utility
 
-{risk_reading}
+{utility_reading}
 
-## Governance Implication
+## Governance
 
 {governance_reading}
+
+## Remediation
+
+{remediation_reading}
 """
 
     if runtime_only or version_drift:
@@ -160,10 +172,31 @@ runtime.
 - organizations would need runtime verification or refresh logic to keep the
   documentation defensible
 
-## Governance Reading
+## Governance
 
 Article 10 style documentation trust cannot be treated as a one-time export
 problem. It becomes a continuous evidence problem once software is deployed.
+
+## Remediation
+
+### Core requirements
+
+- generate a build-time SBOM baseline
+- verify it again at deploy time or release acceptance
+- monitor for runtime drift where the operating model permits it
+- reconcile stale documentation when drift is detected
+
+### Context-dependent choices
+
+- how often to verify
+- which environments need runtime checks
+- what level of drift should block release or trigger escalation
+
+### Stakeholder questions
+
+- who owns the accuracy claim after deployment
+- who decides whether runtime drift is acceptable
+- what evidence is sufficient for regulators, customers, or internal assurance
 """
     else:
         cra_reading = """# CRA Implication
@@ -178,11 +211,31 @@ check.
 - it does not prove that the claim will remain true over time without
   re-verification
 
-## Governance Reading
+## Governance
 
 Article 10 still points toward continuity. Even when a single runtime check
 aligns with the build snapshot, the assurance claim is temporal and should be
 re-checked as software, deployment conditions, or initialization logic change.
+
+## Remediation
+
+### Core requirements
+
+- keep build-time SBOM generation as the baseline
+- add periodic or event-driven re-verification
+- define what evidence preserves trust over time
+
+### Context-dependent choices
+
+- whether deploy-time gating is enough or runtime monitoring is also needed
+- how much drift is acceptable for low-risk versus high-risk systems
+- whether supplementary evidence should be package-level, filesystem-level, or both
+
+### Stakeholder questions
+
+- which stakeholders rely on the SBOM as a trust artifact
+- what freshness standard they expect
+- when a previously accurate SBOM should be treated as stale
 """
 
     DRIFT_REPORT.write_text(drift_report)

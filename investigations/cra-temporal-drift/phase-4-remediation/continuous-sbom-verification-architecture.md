@@ -1,40 +1,46 @@
 # Continuous SBOM Verification Architecture
 
-If CRA-style documentation trust is temporal, then the remediation pattern is
-not "generate a better snapshot." It is "continuously verify whether the
-snapshot still reflects deployed reality."
+If CRA-style documentation trust is temporal, then remediation is not "generate
+a better snapshot." It is "keep deciding whether the snapshot still deserves
+trust."
 
-## Suggested Architecture
+## Core Requirements
 
-1. **Build-time generation**
-   Produce the SBOM at image build or image intake time.
-2. **Runtime extraction**
-   Periodically extract actual installed packages from the running workload.
-3. **Runtime cross-check**
-   Optionally generate a second runtime SBOM view from the live container
-   filesystem.
-4. **Drift policy**
-   Define what counts as:
-   - acceptable stability
-   - version drift
-   - undeclared runtime additions
-   - extraction blind spots
-5. **Assurance decision**
-   Decide whether the original SBOM:
-   - still holds
-   - needs refresh
-   - should be accompanied by runtime evidence
-   - should be rejected as stale
+- generate the SBOM at build time as a baseline
+- verify the baseline again at deploy or release acceptance
+- define a way to detect runtime drift where the operating model allows it
+- reconcile or refresh documentation when the evidence no longer aligns
 
-## Minimal Operating Pattern
+## Context-Dependent Choices
 
-- build-time SBOM captured automatically
-- runtime package extraction on a schedule or deployment event
-- comparison report generated automatically
-- exceptions routed to engineering and governance review
+These should not be hardcoded across every environment.
+
+They depend on system criticality, operating model, and stakeholder tolerance.
+
+- whether verification happens only at deploy or also during runtime
+- whether package-level checks are enough or filesystem-level evidence is needed
+- what amount of drift is acceptable before trust is considered broken
+- how often evidence must be refreshed
+
+## Stakeholder Questions
+
+These questions should be discussed explicitly with engineering, security,
+compliance, product, and operations stakeholders:
+
+- who owns the SBOM accuracy claim after deployment?
+- who decides whether observed drift is acceptable?
+- what evidence standard is required for regulators, customers, or auditors?
+- when should a previously accurate SBOM be treated as stale?
+
+## Suggested Operating Pattern
+
+1. Build-time generation
+2. Deploy-time verification
+3. Runtime drift monitoring where justified
+4. Alerting, review, and reconciliation
 
 ## Why This Matters
 
 This turns SBOM assurance from a tooling output into a governable evidence
-process. That is the real bridge from security tooling to CRA-oriented
-documentation trust.
+process. That is the bridge from security tooling to CRA-oriented documentation
+trust.

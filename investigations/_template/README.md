@@ -20,29 +20,40 @@ investigations/<investigation-name>/
 
 Every investigation should be explainable through these sections:
 
-### Technical Accuracy
+### Accuracy
 
 - what the original claim was
 - what was observed in practice
 - whether they matched
 
-### Risk
+### Utility
 
-- what can go wrong if the claim is stale or incomplete
+- whether the evidence is useful for decisions
+- what can and cannot be concluded from it
 - what blind spots remain
-- when the organization would make a wrong decision if it trusted the artifact
 
-### Governance Implication
+### Governance
 
 - what the result means for the regulation, policy, or assurance obligation
 - whether point-in-time evidence is enough
 - what continuity or maintenance requirement follows
 
-## Optional Fourth Section
-
 ### Remediation
 
-- what process or architecture would keep the claim trustworthy over time
+Use remediation as guidance, not a hardcoded answer.
+
+#### Core requirements
+
+- what minimum controls or verification steps should exist
+
+#### Context-dependent choices
+
+- what should vary by system criticality, operating model, or regulatory context
+
+#### Stakeholder questions
+
+- what should be decided with engineering, security, compliance, product, or
+  operations stakeholders
 
 ## GitHub Project Guidance
 
@@ -54,5 +65,6 @@ Keep project items simple:
 - `Role` = repository position only
 - `Status` = maturity
 
-Do not overload project fields with the full analysis structure. The three-layer
-model belongs in the investigation write-up, not in project metadata.
+Do not overload project fields with the full analysis structure. The
+`Accuracy / Utility / Governance / Remediation` method belongs in the
+investigation write-up, not in project metadata.

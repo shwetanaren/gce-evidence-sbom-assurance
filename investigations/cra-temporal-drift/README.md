@@ -66,13 +66,16 @@ It is whether the organization can tell:
 
 ## Analysis Convention
 
-Every investigation in this repo should read through the same three layers:
+Every investigation in this repo should read through the same method:
 
-1. **Technical Accuracy**
-   Does the build-time claim still match observed technical reality?
-2. **Risk**
-   What can go wrong if the claim drifts or becomes stale?
-3. **Governance Implication**
+1. **Accuracy**
+   Does the claim still match observed reality?
+2. **Utility**
+   Is the evidence useful for decisions, or does it leave important blind spots?
+3. **Governance**
    What does that mean for the regulation, control, or assurance obligation?
+4. **Remediation**
+   What should be done next, including context-dependent and stakeholder-shaped
+   choices?
 
 That keeps the repo simple, fast to scan, and consistent across future labs.
