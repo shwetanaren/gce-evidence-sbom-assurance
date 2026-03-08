@@ -1,4 +1,4 @@
-experiments/nginx-stable-alpine/artifacts/runtime/*/filesystem.tar
-experiments/nginx-stable-alpine/artifacts/runtime/*/rootfs/
+investigations/cra-temporal-drift/.tmp/
+investigations/cra-temporal-drift/phase-2-runtime/container-name.txt
 __pycache__/
 *.pyc

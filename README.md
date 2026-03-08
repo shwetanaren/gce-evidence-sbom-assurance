@@ -1,99 +1,66 @@
 # gce-evidence-sbom-assurance
 
-SBOM assurance as an evidence problem, not just an artifact problem.
+This repository investigates SBOM assurance as a temporal evidence problem.
 
-This repository tests whether an SBOM generated from a static container image
-remains trustworthy when checked against runtime filesystem reality.
+The central question is not only whether software can produce an SBOM at build
+time. It is whether that build-time snapshot still deserves trust once the
+container is actually running.
 
-The immediate experiment starts with `nginx:stable-alpine` and asks a simple
-question:
+## Current Investigation
 
-> Is a baseline image SBOM enough, or do we need additional runtime evidence to
-> trust the declared inventory?
+The current investigation lives in
+[`investigations/cra-temporal-drift/`](./investigations/cra-temporal-drift/).
 
-## Current Experiment
+It asks:
 
-The first lab lives in
-[`experiments/nginx-stable-alpine/`](./experiments/nginx-stable-alpine/).
+> Can you trust a static SBOM once the container is running?
 
-It implements a repeatable flow that:
+The investigation uses `nginx:stable-alpine` and follows a clean four-phase
+flow:
 
-1. generates a baseline CycloneDX SBOM from the static image with Syft
-2. runs the image as a container
-3. applies three runtime mutation scenarios
-4. captures runtime evidence with `docker diff`, `docker export`, and a Syft
-   scan of the exported filesystem
-5. compares baseline inventory against runtime evidence
-6. classifies the drift and explains what it means for assurance
+1. capture build-time evidence
+2. extract live runtime state
+3. compare build-time versus runtime
+4. explain the remediation architecture needed for continuous trust
 
 ## Quick Start
 
 ```bash
-cd experiments/nginx-stable-alpine
-./scripts/06-run-sample.sh
+cd investigations/cra-temporal-drift
+./phase-1-build-time/01-build-image.sh
+./phase-2-runtime/02-run-and-extract.sh
+python3 ./phase-3-comparison/05-compare-build-vs-runtime.py
 ```
-
-Artifacts are written into:
-
-- `experiments/nginx-stable-alpine/artifacts/baseline/`
-- `experiments/nginx-stable-alpine/artifacts/runtime/`
-- `experiments/nginx-stable-alpine/findings/`
-
-## Repository Layout
-
-```text
-experiments/nginx-stable-alpine/
-  README.md
-  scripts/
-  lib/
-  artifacts/
-  findings/
-docs/
-```
-
-This repo stays markdown-first and portfolio-friendly:
-
-- runnable scripts are kept small and readable
-- findings are written as markdown, not hidden in notebook output
-- the evidence model is explicit, so the governance argument is inspectable
 
 ## Why This Matters
 
-An image can produce an SBOM and still fail as trustworthy evidence at runtime.
+CRA Article 10 is fundamentally an evidence problem.
 
-That happens when:
+If technical documentation is supposed to reflect reality, then a build-time
+SBOM on its own is only a snapshot. The trust question becomes temporal:
 
-- normal runtime churn changes the observed filesystem surface
-- configuration drift alters what the software actually does
-- material component drift adds or removes packages after the baseline artifact
-
-The governance problem is not only whether tooling can emit an SBOM. The real
-question is whether the declared inventory still deserves trust when operations
-change the runtime state.
+- does the runtime still match the snapshot?
+- if not, how would the organization know?
+- what evidence would prove that the inventory claim is still valid?
 
 ## Regulatory Extensions
 
 This repo is one lab in the broader Governance - Code - Evidence series. The
-same evidence-assurance logic can be applied to other regulations and operating
-contexts.
+same assurance logic can later be applied to other regulatory domains.
 
 | Regulation | Investigation | Status |
 | ---------- | ------------- | ------ |
-| CRA | nginx SBOM runtime trust | In progress |
-| DORA | Terraform drift versus declared control state | Planned |
-| GDPR | Consent state reconciliation versus proof claims | Planned |
-| EU AI Act | ML pipeline provenance versus operational reality | Planned |
+| CRA | Temporal drift between static SBOM and runtime reality | In progress |
+| DORA | Declared control state versus operational drift | Planned |
+| GDPR | Consent artifact versus effective runtime state | Planned |
+| EU AI Act | Model pipeline documentation versus deployed behavior | Planned |
 
-## Methodology
+## Repo Shape
 
-Three-layer evaluation:
+The repo is now centered on a single investigation surface instead of multiple
+parallel experiment layouts:
 
-1. **Accuracy:** Does the artifact match observed runtime reality?
-2. **Utility:** Does the evidence help manage actual risk?
-3. **Governance:** Does the assurance posture support regulatory or customer
-   proof needs?
-
-## Supporting Docs
-
-- [`experiments/nginx-stable-alpine/README.md`](./experiments/nginx-stable-alpine/README.md)
-- [`docs/evidence-model.md`](./docs/evidence-model.md)
+```text
+investigations/
+  cra-temporal-drift/
+```

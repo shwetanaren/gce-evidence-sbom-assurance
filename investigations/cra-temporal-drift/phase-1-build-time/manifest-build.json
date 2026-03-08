@@ -1,0 +1,83 @@
+[
+    {
+        "Id": "sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350",
+        "RepoTags": [
+            "gce-cra-temporal-drift:nginx-stable-alpine"
+        ],
+        "RepoDigests": [
+            "gce-cra-temporal-drift@sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2026-02-05T00:07:17.062558641Z",
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "80/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "NGINX_VERSION=1.28.2",
+                "PKG_RELEASE=1",
+                "DYNPKG_RELEASE=1",
+                "NJS_VERSION=0.9.5",
+                "NJS_RELEASE=1",
+                "ACME_VERSION=0.3.1"
+            ],
+            "Cmd": [
+                "nginx",
+                "-g",
+                "daemon off;"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "/",
+            "Entrypoint": [
+                "/docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "maintainer": "NGINX Docker Maintainers <docker-maint@nginx.com>"
+            },
+            "StopSignal": "SIGQUIT"
+        },
+        "Architecture": "arm64",
+        "Os": "linux",
+        "Size": 25779843,
+        "GraphDriver": {
+            "Data": null,
+            "Name": "overlayfs"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:45f3ea5848e8a25ca27718b640a21ffd8c8745d342a24e1d4ddfc8c449b0a724",
+                "sha256:b3bc16e7b7d437612a9c5dcca2eb389babc09c4aeb42013b126e7733e92c9bed",
+                "sha256:5cc6065fcec11bf2740ce36af500cce1e21df45d887d874e370ba56f1eb32e85",
+                "sha256:7e15bea8b9abdcc4f4ca581eb6573d681df7c62d297e89b70471ca3f7a8d1b0d",
+                "sha256:a12e6a7111409d0776a67542906fdf617b585be3474ec08dc009205f645f8cdb",
+                "sha256:e7709ec9d5510cbed843c15d765b1bf26cfef51cf25133f87d2c42ce5f0a6bfe",
+                "sha256:b22252426d3d075358d01e700889dfeb6a9bf5563cf8ad934df1e5e819f207b2",
+                "sha256:0fb5839ac0309c9abdbb0794841a3be2d8039f76ecc5db4a516de664604d254b"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2026-03-08T21:39:12.328275876Z"
+        },
+        "Descriptor": {
+            "mediaType": "application/vnd.oci.image.index.v1+json",
+            "digest": "sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350",
+            "size": 856
+        }
+    }
+]
