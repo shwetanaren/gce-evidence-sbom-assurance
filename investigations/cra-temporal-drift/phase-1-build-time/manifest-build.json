@@ -1,11 +1,11 @@
 [
     {
-        "Id": "sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350",
+        "Id": "sha256:15e96e59aa3b0aada3a121296e3bce117721f42d88f5f64217ef4b18f458c6ab",
         "RepoTags": [
-            "gce-cra-temporal-drift:nginx-stable-alpine"
+            "nginx:stable-alpine"
         ],
         "RepoDigests": [
-            "gce-cra-temporal-drift@sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350"
+            "nginx@sha256:15e96e59aa3b0aada3a121296e3bce117721f42d88f5f64217ef4b18f458c6ab"
         ],
         "Parent": "",
         "Comment": "buildkit.dockerfile.v0",
@@ -52,8 +52,9 @@
             "StopSignal": "SIGQUIT"
         },
         "Architecture": "arm64",
+        "Variant": "v8",
         "Os": "linux",
-        "Size": 25779843,
+        "Size": 25790005,
         "GraphDriver": {
             "Data": null,
             "Name": "overlayfs"
@@ -72,12 +73,12 @@
             ]
         },
         "Metadata": {
-            "LastTagTime": "2026-03-08T21:39:12.328275876Z"
+            "LastTagTime": "2026-03-08T22:27:06.660539505Z"
         },
         "Descriptor": {
             "mediaType": "application/vnd.oci.image.index.v1+json",
-            "digest": "sha256:83472fdbb34e0cfb9f38fc04d4c2b3abd7edc20dd256eba0c76118bfbec26350",
-            "size": 856
+            "digest": "sha256:15e96e59aa3b0aada3a121296e3bce117721f42d88f5f64217ef4b18f458c6ab",
+            "size": 10317
         }
     }
 ]

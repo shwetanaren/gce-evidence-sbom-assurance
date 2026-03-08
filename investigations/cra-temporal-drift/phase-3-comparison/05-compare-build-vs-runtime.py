@@ -61,7 +61,7 @@ def main() -> None:
         if name in runtime_packages and build_packages[name] != runtime_packages[name]
     )
 
-    syft_runtime_only = sorted(
+    runtime_sbom_only = sorted(
         name for name in running_sbom_packages if name not in build_packages
     )
 
@@ -122,7 +122,7 @@ Can a static build-time SBOM still be trusted once the container is running?
 
 - Build-time SBOM packages: {len(build_packages)}
 - Runtime extracted packages: {len(runtime_packages)}
-- Running-container Syft packages: {len(running_sbom_packages)}
+- Running-container SBOM packages: {len(running_sbom_packages)}
 
 ## Present At Build-Time Only
 
@@ -136,11 +136,11 @@ Can a static build-time SBOM still be trusted once the container is running?
 
 {markdown_list([f"{name}: build={build_packages[name]}, runtime={runtime_packages[name]}" for name in version_drift])}
 
-## Running-Container Syft Cross-Check
+## Running-Container SBOM Cross-Check
 
 Runtime-only packages seen by the running-container SBOM:
 
-{markdown_list([f"{name}@{running_sbom_packages[name]}" for name in syft_runtime_only])}
+{markdown_list([f"{name}@{running_sbom_packages[name]}" for name in runtime_sbom_only])}
 
 ## Accuracy
 

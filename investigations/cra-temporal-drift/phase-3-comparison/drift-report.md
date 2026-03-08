@@ -8,7 +8,7 @@ Can a static build-time SBOM still be trusted once the container is running?
 
 - Build-time SBOM packages: 72
 - Runtime extracted packages: 72
-- Running-container Syft packages: 72
+- Running-container SBOM packages: 72
 
 ## Present At Build-Time Only
 
@@ -22,7 +22,7 @@ None
 
 None
 
-## Running-Container Syft Cross-Check
+## Running-Container SBOM Cross-Check
 
 Runtime-only packages seen by the running-container SBOM:
 
