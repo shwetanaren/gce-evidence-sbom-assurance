@@ -55,6 +55,30 @@ Use remediation as guidance, not a fixed answer.
 - what should be decided with engineering, security, compliance, product, or
   operations stakeholders
 
+## Three-Layer Audit Lens
+
+Use the reading structure above together with this audit lens:
+
+### Layer 1: Product Reality
+
+- what is technically true in the source, image, configuration, or runtime
+- whether the issue is observable, reproducible, and scoped correctly
+
+### Layer 2: Evidence Quality
+
+- what evidence detects the issue
+- what evidence misses it or overstates it
+- whether the result is trustworthy enough for decisions
+
+### Layer 3: CRA Meaning
+
+- which CRA requirement the result primarily informs
+- what the finding contributes to governance interpretation
+- what it still does not prove
+
+This keeps the investigation grounded in fact, assurance value, and regulatory
+meaning rather than stopping at tool output.
+
 ## GitHub Project Guidance
 
 Keep project items simple:
